@@ -4,5 +4,10 @@
 }
 .card {
     display: inline-block;
-    padding: 10px;
+    margin: 10px;
+    background: slateblue;
+    vertical-align: middle; /* inline-block元素包含文字和不包含文字基线会不一致*/
+    text-align: center;
+    color: white;
+    font-size: 49px;
 }
