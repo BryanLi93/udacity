@@ -1,6 +1,9 @@
 #arena {
     background: skyblue;
     padding: 10px;
+    position: absolute;
+    top: calc(50vh - 400px);
+    left: calc(50vw - 400px);
 }
 .card {
     display: inline-block;
@@ -10,4 +13,7 @@
     text-align: center;
     color: white;
     font-size: 49px;
+}
+#info > div {
+    padding: 5px;
 }

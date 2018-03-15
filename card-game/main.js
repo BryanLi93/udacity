@@ -3,11 +3,18 @@ var setting = {
         arenaWidth: 800
     },
     $arena = document.getElementById('arena'),
+    $timer = document.getElementById('timer'),
+    $star = document.getElementById('star'),
+    $moves = document.getElementById('moves'),
     cards,
     cardsNode,
     previousIndex,
     canClick,
-    openCount;
+    openCount,
+    timer,
+    timerInterval,
+    star,
+    moves;
 
 // 初始化卡盘 
 function init() {
@@ -16,6 +23,15 @@ function init() {
     previousIndex = null;
     canClick = true;
     openCount = 0;
+    timer = 0;
+    star = 3;
+    moves = 0;
+
+    $timer.innerText = timer;
+    $star.innerText = star;
+    $moves.innerText = moves;
+
+    clearInterval(timerInterval);
 
     $arena.style.width = setting.arenaWidth + 'px';
     while ($arena.firstChild) {
@@ -23,6 +39,7 @@ function init() {
     }
     this.initCards();
     this.bindEvents();
+    this.initTimer();
 }
 
 function getCardPairs() {
@@ -62,6 +79,8 @@ function chooseCard(index) {
             cardsNode[index].innerHTML = cards[index].value;
             cards[index].isOpen = true;
 
+            $moves.innerText = ++moves;
+
             if (cards[index].value !== cards[previousIndex].value) {
                 var toClearIndex = previousIndex;
                 setTimeout(function () {
@@ -72,9 +91,16 @@ function chooseCard(index) {
                 openCount += 2;
                 if (openCount === Math.pow(setting.size, 2)) {
                     setTimeout( function () {
-                        if (confirm('Congratulations! Again?')) {
-                            init();
+                        var txt = '共用时' + timer + '秒，';
+                        if (timer < 21) {
+                            txt = '获得了三星，非常棒！';
+                        } else if (timer < 41) {
+                            txt = '获得了两星，超越全国50%的玩家！';
+                        } else {
+                            txt = '获得了一星，还需努力！';
                         }
+                        clearInterval(timerInterval);
+                        alert(txt);
                     }, 100);
                 }
             }
@@ -95,6 +121,19 @@ function bindEvents() {
             }
         });
     }
+}
+
+function initTimer () {
+    timerInterval = setInterval(function () {
+        timer += 1;
+        $timer.innerText = timer;
+        if (timer > 20 && timer < 41) {
+            star = 2;
+        } else if (timer >= 41) {
+            star = 1;
+        }
+        $star.innerText = star;
+    }, 1000);
 }
 
 init.getCardPairs = getCardPairs;
