@@ -153,7 +153,7 @@ var Engine = (function(global) {
             enemy.render();
         });
 
-        // player.render();
+        player.render();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -161,7 +161,30 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+        this.player = new Player();
+    }
+
+    function checkIsCrashed () {
+
+        var pTopLeft = {
+                x: player.x,
+                y: player.y
+            },
+            pTopRight = {
+                x: player.x + 101,
+                y: player.y
+            },
+            pBottomLeft = {
+                x: player.x,
+                y: player.y - 85
+            },
+            pBottomRight = {
+                x: player.x + 101,
+                y: player.y - 85
+            }
+        for (var i = 0; i < allEnemies.length; i++) {
+            var enemy = allEnemies[i];
+        }
     }
 
     /* Go ahead and load all of the images we know we're going to need to
