@@ -1,3 +1,4 @@
+var score = 0;
 // Enemies our player must avoid
 var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
@@ -19,7 +20,7 @@ Enemy.prototype.update = function(dt) {
         this.x = getEnemyInitialX();
         this.y = getEnemyInitialY();
     } else {
-        this.x += 101 * dt;
+        this.x += 101 * (score + 1) * dt;
     }
 };
 

@@ -22,7 +22,8 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
-        lastTime;
+        lastTime,
+        isUpdatingScore = false; // for showing player in winner area 
 
     canvas.width = 505;
     canvas.height = 606;
@@ -79,7 +80,20 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        if (checkIsCrashed()) {
+            score = 0
+            document.getElementById('score').innerText = score;
+            reset();
+        }
+        if (!isUpdatingScore && checkIsWin()) {
+            isUpdatingScore = true;
+            setTimeout(() => {
+                score++;
+                document.getElementById('score').innerText = score;
+                reset();
+                isUpdatingScore = false;
+            }, 200);
+        }
     }
 
     /* This is called by the update function and loops through all of the
@@ -165,26 +179,35 @@ var Engine = (function(global) {
     }
 
     function checkIsCrashed () {
-
-        var pTopLeft = {
-                x: player.x,
-                y: player.y
-            },
-            pTopRight = {
-                x: player.x + 101,
-                y: player.y
-            },
-            pBottomLeft = {
-                x: player.x,
-                y: player.y - 85
-            },
-            pBottomRight = {
-                x: player.x + 101,
-                y: player.y - 85
-            }
+        var isCrashed = false;
+        var godMercy = 25;
+        var pLeft = player.x,
+            pRight = player.x + 101,
+            pTop = player.y,
+            pBottom = player.y + 85;
+        var enemy, eLeft, eRight, eTop, eBottom;
         for (var i = 0; i < allEnemies.length; i++) {
-            var enemy = allEnemies[i];
+            enemy = allEnemies[i];
+            eLeft = enemy.x;
+            eRight = enemy.x + 101;
+            eTop = enemy.y;
+            eBottom = enemy.y + 85;
+            if (pTop === eTop && pBottom === eBottom) { // same y
+                if ((pLeft > (eLeft + godMercy) && pLeft < (eRight - godMercy)) || (pRight > (eLeft + godMercy) && pRight < (eRight - godMercy))) {
+                    isCrashed = true;
+                    break;
+                }
+            }
         }
+        return isCrashed;
+    }
+
+    function checkIsWin () {
+        if (player.y < 0) {
+            console.log('win');
+            return true;
+        }
+        return false;
     }
 
     /* Go ahead and load all of the images we know we're going to need to
