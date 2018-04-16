@@ -31,10 +31,10 @@ $(function() {
          * and that the URL is not empty.
          */
         it('each has not empty URL', function () {
-            for (var i = 0; i < allFeeds.length; i++) {
-                expect(allFeeds[i].url).toBeDefined();
-                expect(allFeeds[i].url.length).not.toBe(0);
-            }
+            allFeeds.forEach(function (feed) {
+                expect(feed.url).toBeDefined();
+                expect(feed.url.length).not.toBe(0);
+            });
         });
 
         /* TODO: Write a test that loops through each feed
@@ -42,10 +42,10 @@ $(function() {
          * and that the name is not empty.
          */
         it('each has not empty name', function () {
-            for (var i = 0; i < allFeeds.length; i++) {
-                expect(allFeeds[i].name).toBeDefined();
-                expect(allFeeds[i].name.length).not.toBe(0);
-            }
+            allFeeds.forEach(function (feed) {
+                expect(feed.name).toBeDefined();
+                expect(feed.name.length).not.toBe(0);
+            });
         });
     });
 
@@ -86,9 +86,10 @@ $(function() {
                 done();
             });
         });
-        it('render elements when call loadFeed function', function (done) {
+        it('render elements when call loadFeed function', function () {
             expect(document.querySelectorAll('.feed .entry').length).not.toBe(0);
-            done();
+            // 因为在这个 it 里面没有执行异步函数，可以不用 done 来通知了
+            // done();
         });
     });
 
@@ -101,16 +102,17 @@ $(function() {
         var prevFeedList, nextFeedList;
         beforeEach(function (done) {
             loadFeed(0, function () {
-                prevFeedList = document.querySelectorAll('.feed .entry');
+                // prevFeedList = document.querySelectorAll('.feed .entry');
+                prevFeedList = $('.feed .entry');
                 loadFeed(1, function () {
                     nextFeedList = document.querySelectorAll('.feed .entry');
+                    nextFeedList = $('.feed .entry');
                     done();
                 });
             });
         });
-        it('load new feeds when choose another feed list', function (done) {
-            expect(prevFeedList[0].innerText).not.toBe(nextFeedList[0].innerText);
-            done();
+        it('load new feeds when choose another feed list', function () {
+            expect(prevFeedList.first().text()).not.toBe(nextFeedList.first().text());
         });
     });    
 }());
