@@ -1,0 +1,14 @@
+.cat {
+  width: 200px;
+  vertical-align: middle;
+}
+.cat-house {
+  vertical-align: middle;
+  margin-top: 10px;
+}
+.cat-control {
+  margin-top: 20px;
+}
+.click-times {
+  color: skyblue;
+}

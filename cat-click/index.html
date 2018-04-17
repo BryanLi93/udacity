@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <style>
-        .cat {
-            width: 200px;
-            vertical-align: middle;
-        }
-        .catHouse {
-            vertical-align: middle;
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="./css//index.css">
 </head>
+
 <body>
-    <div>
-        猫咪被点击次数：<span id="clickTimes">0</span>
+    <div id="ShangHai"></div>
+    <!-- <div>
+        猫咪被点击次数：
+        <span id="clickTimes">0</span>
     </div>
     <div class="catHouse">
         小冬瓜:
@@ -27,17 +22,11 @@
     <div class="catHouse">
         小西瓜:
         <img class="cat" src="./images//cat2.jpg" alt="">
-    </div>
+    </div> -->
 
-    <script>
-        let clickTimes = 0;
-        const cats = document.getElementsByClassName('cat');
-        for (const cat of cats) {
-            cat.addEventListener('click', function (e) {
-                clickTimes++;
-                document.querySelector('#clickTimes').innerHTML = clickTimes;
-            }); 
-        };
-    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="./js/index.js"></script>
 </body>
+
 </html>
