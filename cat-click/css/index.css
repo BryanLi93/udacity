@@ -1,14 +1,24 @@
-.cat {
-  width: 200px;
-  vertical-align: middle;
-}
 .cat-house {
-  vertical-align: middle;
-  margin-top: 10px;
+  margin-top: 10vh;
+  margin-left: 15vh
 }
-.cat-control {
-  margin-top: 20px;
+
+.cats {
+  cursor: pointer;
 }
+
+.cat-avatar {
+  height: 350px;
+}
+
+.cat-name {
+  color: slateblue;
+}
+
 .click-times {
   color: skyblue;
+}
+
+.form {
+  display: none;
 }
